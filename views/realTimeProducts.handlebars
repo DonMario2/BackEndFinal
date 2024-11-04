@@ -1,0 +1,19 @@
+<ul id="product-list">
+  {{#each products}}
+    <li>{{this.title}} - {{this.description}}</li>
+  {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  socket.on('product update', function(products){
+    var productList = document.getElementById('product-list');
+    productList.innerHTML = '';
+    products.forEach(function(product){
+      var li = document.createElement('li');
+      li.textContent = product.title + ' - ' + product.description;
+      productList.appendChild(li);
+    });
+  });
+</script>
